@@ -1,0 +1,57 @@
+.topbar {
+  height: 92px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid #e8e8e1;
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 11px;
+  color: #222b20;
+  font-size: 21px;
+  font-weight: 750;
+  letter-spacing: -0.8px;
+  text-decoration: none;
+}
+
+.brand-mark {
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 10px 10px 10px 3px;
+  color: #fff;
+  background: #65825b;
+  font-size: 17px;
+  font-weight: 700;
+}
+
+.brand-accent {
+  color: #66835c;
+}
+
+.topbar-note {
+  color: #7f8378;
+  font-size: 12px;
+  letter-spacing: 0.03em;
+}
+
+.brand:focus-visible {
+  outline: 3px solid rgba(104, 132, 93, 0.4);
+  outline-offset: 3px;
+}
+
+@media (max-width: 480px) {
+  .topbar {
+    height: 72px;
+  }
+
+  .topbar-note {
+    max-width: 112px;
+    text-align: right;
+    font-size: 10px;
+  }
+}

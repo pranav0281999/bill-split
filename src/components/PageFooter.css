@@ -1,0 +1,27 @@
+.page-footer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+  min-height: 64px;
+  border-top: 1px solid #e8e8e1;
+  color: #a0a399;
+  font-size: 9px;
+  font-weight: 650;
+  letter-spacing: 0.12em;
+}
+
+.footer-divider {
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: #a0a399;
+}
+
+@media (max-width: 480px) {
+  .page-footer {
+    gap: 9px;
+    font-size: 7px;
+    letter-spacing: 0.08em;
+  }
+}
