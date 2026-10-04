@@ -1,10 +1,11 @@
 import { useState, type FormEvent } from 'react'
 import AppHeader from './components/AppHeader'
-import LockedParticipants from './components/LockedParticipants'
+import ExpenseEntry from './components/ExpenseEntry'
 import PageFooter from './components/PageFooter'
 import ParticipantForm from './components/ParticipantForm'
 import SetupIntro from './components/SetupIntro'
 import { getNameError, type ParticipantDraft } from './components/participants'
+import type { Expense } from './components/expenses'
 import './App.css'
 
 function App() {
@@ -15,6 +16,8 @@ function App() {
   const [nextId, setNextId] = useState(3)
   const [isLocked, setIsLocked] = useState(false)
   const [showErrors, setShowErrors] = useState(false)
+  const [expenses, setExpenses] = useState<Expense[]>([])
+  const [nextExpenseId, setNextExpenseId] = useState(1)
 
   const nameErrors = participants.map((participant) =>
     getNameError(participant.id, participant.name, participants),
@@ -56,13 +59,29 @@ function App() {
     setIsLocked(true)
   }
 
+  function saveExpense(expense: Omit<Expense, 'id'> & { id?: number }) {
+    if (expense.id === undefined) {
+      setExpenses((current) => [...current, { ...expense, id: nextExpenseId }])
+      setNextExpenseId((current) => current + 1)
+      return
+    }
+
+    setExpenses((current) =>
+      current.map((item) => item.id === expense.id ? { ...expense, id: item.id } : item),
+    )
+  }
+
+  function removeExpense(id: number) {
+    setExpenses((current) => current.filter((expense) => expense.id !== id))
+  }
+
   return (
     <main className="app-shell">
       <AppHeader />
-      <section className="setup-layout" aria-labelledby="page-title">
-        <SetupIntro />
-        <div className="form-panel">
-          {!isLocked ? (
+      {!isLocked ? (
+        <section className="setup-layout" aria-labelledby="page-title">
+          <SetupIntro />
+          <div className="form-panel">
             <ParticipantForm
               participants={participants}
               nameErrors={nameErrors}
@@ -72,11 +91,18 @@ function App() {
               onRemove={removeParticipant}
               onSubmit={continueToExpenses}
             />
-          ) : (
-            <LockedParticipants participants={participants} />
-          )}
-        </div>
-      </section>
+          </div>
+        </section>
+      ) : (
+        <section className="expense-layout" aria-labelledby="expenses-title">
+          <ExpenseEntry
+            participants={participants}
+            expenses={expenses}
+            onSave={saveExpense}
+            onRemove={removeExpense}
+          />
+        </section>
+      )}
       <PageFooter />
     </main>
   )

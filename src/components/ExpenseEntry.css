@@ -1,0 +1,118 @@
+.expense-layout {
+  width: min(100%, 920px);
+  margin: 0 auto;
+  padding: 57px 0 72px;
+}
+
+.expense-page-heading {
+  margin-bottom: 28px;
+}
+
+.expense-page-heading .step-indicator {
+  margin-bottom: 17px;
+}
+
+.expense-page-heading h1 {
+  margin: 0;
+  color: #283329;
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: clamp(38px, 5vw, 54px);
+  font-weight: 400;
+  letter-spacing: -0.05em;
+  line-height: 1.08;
+}
+
+.expense-page-heading > p {
+  margin: 12px 0 0;
+  color: #74796f;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.participant-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 20px;
+}
+
+.participant-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 5px 11px 5px 6px;
+  border: 1px solid #e8eae3;
+  border-radius: 30px;
+  color: #50594a;
+  background: #fff;
+  font-size: 11px;
+}
+
+.pill-avatar {
+  display: grid;
+  place-items: center;
+  width: 23px;
+  height: 23px;
+  border-radius: 50%;
+  color: #fff;
+  font-size: 10px;
+  font-weight: 700;
+}
+
+.avatar-tone-0 { background: #77966a; }
+.avatar-tone-1 { background: #bc8c62; }
+.avatar-tone-2 { background: #718a9c; }
+.avatar-tone-3 { background: #a27c9b; }
+
+.expense-sections {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  align-items: start;
+  gap: 16px;
+}
+
+.expense-next-step {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  width: fit-content;
+  max-width: 100%;
+  margin: 23px auto 0;
+  padding: 13px 18px;
+  border: 1px solid #e8e9e0;
+  border-radius: 10px;
+  background: rgba(255, 255, 252, 0.72);
+}
+
+.expense-next-step > span {
+  display: grid;
+  flex: 0 0 auto;
+  place-items: center;
+  width: 27px;
+  height: 27px;
+  border-radius: 8px;
+  color: #69835d;
+  background: #edf2e8;
+}
+
+.expense-next-step p {
+  color: #7d8177;
+  font-size: 11px;
+  line-height: 1.65;
+}
+
+.expense-next-step strong {
+  color: #465442;
+  font-size: 12px;
+}
+
+@media (max-width: 720px) {
+  .expense-layout {
+    width: min(100%, 540px);
+    padding: 44px 0 56px;
+  }
+
+  .expense-sections {
+    grid-template-columns: 1fr;
+  }
+}
