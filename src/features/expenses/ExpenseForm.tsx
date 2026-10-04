@@ -1,6 +1,6 @@
 import { useState, type FormEvent } from 'react'
 import type { Expense } from './expenses'
-import type { ParticipantDraft } from './participants'
+import type { ParticipantDraft } from '../participants/participants'
 import './ExpenseForm.css'
 
 type ExpenseFormProps = {

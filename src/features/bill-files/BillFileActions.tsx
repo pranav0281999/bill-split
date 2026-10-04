@@ -1,7 +1,7 @@
 import { useRef, useState } from 'react'
-import type { Expense } from './expenses'
+import type { Expense } from '../expenses/expenses'
 import { createBillJson, parseBillJson, type BillFile } from './billFile'
-import type { ParticipantDraft } from './participants'
+import type { ParticipantDraft } from '../participants/participants'
 import './BillFileActions.css'
 
 type BillFileActionsProps = {

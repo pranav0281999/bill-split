@@ -1,4 +1,4 @@
-import type { ParticipantDraft } from './participants'
+import type { ParticipantDraft } from '../participants/participants'
 import type { SettlementSummary } from './settlement'
 import './BalanceSummary.css'
 

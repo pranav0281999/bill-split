@@ -1,6 +1,6 @@
 import ExpenseSection from './ExpenseSection'
 import type { Expense } from './expenses'
-import type { ParticipantDraft } from './participants'
+import type { ParticipantDraft } from '../participants/participants'
 import './ExpenseEntry.css'
 
 type ExpenseEntryProps = {

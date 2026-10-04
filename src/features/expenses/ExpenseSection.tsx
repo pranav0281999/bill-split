@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import ExpenseForm from './ExpenseForm'
 import type { Expense } from './expenses'
-import type { ParticipantDraft } from './participants'
+import type { ParticipantDraft } from '../participants/participants'
 import './ExpenseSection.css'
 
 type ExpenseSectionProps = {

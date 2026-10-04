@@ -1,5 +1,5 @@
-import type { Expense } from './expenses'
-import type { ParticipantDraft } from './participants'
+import type { Expense } from '../expenses/expenses'
+import type { ParticipantDraft } from '../participants/participants'
 
 export type ParticipantBalance = {
   participantId: number
