@@ -1,11 +1,13 @@
 import { useState, type FormEvent } from 'react'
 import AppHeader from './components/AppHeader'
 import ExpenseEntry from './components/ExpenseEntry'
+import BalanceSummary from './components/BalanceSummary'
 import PageFooter from './components/PageFooter'
 import ParticipantForm from './components/ParticipantForm'
 import SetupIntro from './components/SetupIntro'
 import { getNameError, type ParticipantDraft } from './components/participants'
 import type { Expense } from './components/expenses'
+import { calculateSettlement } from './components/settlement'
 import './App.css'
 
 function App() {
@@ -18,6 +20,7 @@ function App() {
   const [showErrors, setShowErrors] = useState(false)
   const [expenses, setExpenses] = useState<Expense[]>([])
   const [nextExpenseId, setNextExpenseId] = useState(1)
+  const [showBalances, setShowBalances] = useState(false)
 
   const nameErrors = participants.map((participant) =>
     getNameError(participant.id, participant.name, participants),
@@ -94,14 +97,27 @@ function App() {
           </div>
         </section>
       ) : (
-        <section className="expense-layout" aria-labelledby="expenses-title">
-          <ExpenseEntry
-            participants={participants}
-            expenses={expenses}
-            onSave={saveExpense}
-            onRemove={removeExpense}
-          />
-        </section>
+        <>
+          <section className="expense-layout" aria-labelledby="expenses-title" hidden={showBalances}>
+            <ExpenseEntry
+              participants={participants}
+              expenses={expenses}
+              onSave={saveExpense}
+              onRemove={removeExpense}
+              onReview={() => setShowBalances(true)}
+            />
+          </section>
+          {showBalances && (
+            <section className="expense-layout" aria-labelledby="balances-title">
+              <BalanceSummary
+                participants={participants}
+                summary={calculateSettlement(participants, expenses)}
+                expenseCount={expenses.length}
+                onBack={() => setShowBalances(false)}
+              />
+            </section>
+          )}
+        </>
       )}
       <PageFooter />
     </main>

@@ -8,9 +8,10 @@ type ExpenseEntryProps = {
   expenses: Expense[]
   onSave: (expense: Omit<Expense, 'id'> & { id?: number }) => void
   onRemove: (id: number) => void
+  onReview: () => void
 }
 
-function ExpenseEntry({ participants, expenses, onSave, onRemove }: ExpenseEntryProps) {
+function ExpenseEntry({ participants, expenses, onSave, onRemove, onReview }: ExpenseEntryProps) {
   return (
     <div className="expense-workspace">
       <div className="expense-page-heading">
@@ -45,8 +46,13 @@ function ExpenseEntry({ participants, expenses, onSave, onRemove }: ExpenseEntry
       </div>
 
       <div className="expense-next-step">
-        <span aria-hidden="true">✳</span>
-        <p><strong>Coming next</strong><br />See everyone’s balance and a simple way to settle up.</p>
+        <div className="expense-next-copy">
+          <span aria-hidden="true">✳</span>
+          <p><strong>Ready to settle up?</strong><br />Review everyone’s balance and suggested transfers.</p>
+        </div>
+        <button className="review-balances-button" type="button" onClick={onReview}>
+          Review balances <span aria-hidden="true">→</span>
+        </button>
       </div>
     </div>
   )

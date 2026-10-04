@@ -74,8 +74,9 @@
 .expense-next-step {
   display: flex;
   align-items: center;
+  justify-content: space-between;
   gap: 13px;
-  width: fit-content;
+  width: 100%;
   max-width: 100%;
   margin: 23px auto 0;
   padding: 13px 18px;
@@ -84,7 +85,13 @@
   background: rgba(255, 255, 252, 0.72);
 }
 
-.expense-next-step > span {
+.expense-next-copy {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+}
+
+.expense-next-copy > span {
   display: grid;
   flex: 0 0 auto;
   place-items: center;
@@ -106,6 +113,32 @@
   font-size: 12px;
 }
 
+.review-balances-button {
+  display: inline-flex;
+  flex: 0 0 auto;
+  align-items: center;
+  gap: 17px;
+  min-height: 40px;
+  padding: 0 14px;
+  border: 0;
+  border-radius: 7px;
+  color: #fff;
+  background: #68845d;
+  cursor: pointer;
+  font: inherit;
+  font-size: 10px;
+  font-weight: 650;
+}
+
+.review-balances-button:hover {
+  background: #567249;
+}
+
+.review-balances-button:focus-visible {
+  outline: 3px solid rgba(104, 132, 93, 0.4);
+  outline-offset: 3px;
+}
+
 @media (max-width: 720px) {
   .expense-layout {
     width: min(100%, 540px);
@@ -114,5 +147,10 @@
 
   .expense-sections {
     grid-template-columns: 1fr;
+  }
+
+  .expense-next-step {
+    align-items: flex-start;
+    flex-direction: column;
   }
 }
