@@ -1,5 +1,6 @@
 import { useState, type FormEvent } from 'react'
 import AppHeader from './components/AppHeader'
+import BillFileActions from './components/BillFileActions'
 import ExpenseEntry from './components/ExpenseEntry'
 import BalanceSummary from './components/BalanceSummary'
 import PageFooter from './components/PageFooter'
@@ -8,6 +9,8 @@ import SetupIntro from './components/SetupIntro'
 import { getNameError, type ParticipantDraft } from './components/participants'
 import type { Expense } from './components/expenses'
 import { calculateSettlement } from './components/settlement'
+import { nextAvailableId } from './components/ids'
+import type { BillFile } from './components/billFile'
 import './App.css'
 
 function App() {
@@ -15,12 +18,11 @@ function App() {
     { id: 1, name: '' },
     { id: 2, name: '' },
   ])
-  const [nextId, setNextId] = useState(3)
   const [isLocked, setIsLocked] = useState(false)
   const [showErrors, setShowErrors] = useState(false)
   const [expenses, setExpenses] = useState<Expense[]>([])
-  const [nextExpenseId, setNextExpenseId] = useState(1)
   const [showBalances, setShowBalances] = useState(false)
+  const [billRevision, setBillRevision] = useState(0)
 
   const nameErrors = participants.map((participant) =>
     getNameError(participant.id, participant.name, participants),
@@ -37,8 +39,10 @@ function App() {
   }
 
   function addParticipant() {
-    setParticipants((current) => [...current, { id: nextId, name: '' }])
-    setNextId((current) => current + 1)
+    setParticipants((current) => [
+      ...current,
+      { id: nextAvailableId(current), name: '' },
+    ])
   }
 
   function removeParticipant(id: number) {
@@ -64,8 +68,10 @@ function App() {
 
   function saveExpense(expense: Omit<Expense, 'id'> & { id?: number }) {
     if (expense.id === undefined) {
-      setExpenses((current) => [...current, { ...expense, id: nextExpenseId }])
-      setNextExpenseId((current) => current + 1)
+      setExpenses((current) => [
+        ...current,
+        { ...expense, id: nextAvailableId(current) },
+      ])
       return
     }
 
@@ -78,9 +84,24 @@ function App() {
     setExpenses((current) => current.filter((expense) => expense.id !== id))
   }
 
+  function replaceBill(bill: BillFile) {
+    setParticipants(bill.participants)
+    setExpenses(bill.expenses)
+    setShowErrors(false)
+    setIsLocked(true)
+    setShowBalances(false)
+    setBillRevision((current) => current + 1)
+  }
+
   return (
     <main className="app-shell">
       <AppHeader />
+      <BillFileActions
+        participants={participants}
+        expenses={expenses}
+        canExport={isLocked || hasValidParticipants}
+        onImport={replaceBill}
+      />
       {!isLocked ? (
         <section className="setup-layout" aria-labelledby="page-title">
           <SetupIntro />
@@ -100,6 +121,7 @@ function App() {
         <>
           <section className="expense-layout" aria-labelledby="expenses-title" hidden={showBalances}>
             <ExpenseEntry
+              key={billRevision}
               participants={participants}
               expenses={expenses}
               onSave={saveExpense}
